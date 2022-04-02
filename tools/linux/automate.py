@@ -92,7 +92,7 @@ def install_deps():
     base.cmd("sudo", ["apt-get", "-y", "install", "openjdk-8-jdk"])
     base.cmd("sudo", ["update-alternatives", "--config", "java"])
     base.cmd("sudo", ["update-alternatives", "--config", "javac"])
-    base.cmd("sudo", ["/var/lib/dpkg/info/ca-certificates-java.postinst", "configure"])
+    base.cmd("sudo", ["dpkg-reconfigure", "ca-certificates"])
     
   base.writeFile("./packages_complete", "complete")
   return

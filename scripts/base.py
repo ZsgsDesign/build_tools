@@ -852,7 +852,7 @@ def web_apps_addons_param():
 
 # common apps
 def download(url, dst):
-  return cmd_exe("curl", ["-L", "-o", dst, url])
+  return cmd_exe("curl", ["-L", "-o", "-k", dst, url])
 
 def extract(src, dst):
   app = "7za" if ("mac" == host_platform()) else "7z"
