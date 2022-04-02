@@ -54,30 +54,37 @@ def install_deps():
   base.cmd("sudo", ["apt-get", "install", "-y"] + packages)
 
   # nodejs
+  # base.cmd("sudo", ["apt-get", "install", "-y", "nodejs"])
+  # nodejs_cur = 0
+  # try:
+  #   nodejs_version = base.run_command('node -v')['stdout']
+  #   nodejs_cur_version_major = int(nodejs_version.split('.')[0][1:])
+  #   nodejs_cur_version_minor = int(nodejs_version.split('.')[1])
+  #   nodejs_cur = nodejs_cur_version_major * 1000 + nodejs_cur_version_minor
+  #   print("Installed Node.js version: " + str(nodejs_cur_version_major) + "." + str(nodejs_cur_version_minor))
+  # except:
+  #   nodejs_cur = 1
+  # if (nodejs_cur < 10020):
+  #   print("Node.js version cannot be less 10.20")
+  #   print("Reinstall")
+  #   if (base.is_dir("./node_js_setup_10.x")):
+  #     base.delete_dir("./node_js_setup_10.x")
+  #   base.cmd("sudo", ["apt-get", "remove", "--purge", "-y", "nodejs"])
+  #   base.download("https://deb.nodesource.com/setup_10.x", "./node_js_setup_10.x")
+  #   base.cmd('curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -')
+  #   base.cmd("sudo", ["bash", "./node_js_setup_10.x"])
+  #   base.cmd("sudo", ["apt-get", "install", "-y", "nodejs"])
+  #   base.cmd("sudo", ["npm", "install", "-g", "npm@6"])
+  # else:
+  #   print("OK")
+  #   base.cmd("sudo", ["apt-get", "-y", "install", "npm", "yarn"], True)
+  
+  base.download("https://deb.nodesource.com/setup_10.x", "./node_js_setup_10.x")
+  base.cmd('curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -')
+  base.cmd("sudo", ["bash", "./node_js_setup_10.x"])
   base.cmd("sudo", ["apt-get", "install", "-y", "nodejs"])
-  nodejs_cur = 0
-  try:
-    nodejs_version = base.run_command('node -v')['stdout']
-    nodejs_cur_version_major = int(nodejs_version.split('.')[0][1:])
-    nodejs_cur_version_minor = int(nodejs_version.split('.')[1])
-    nodejs_cur = nodejs_cur_version_major * 1000 + nodejs_cur_version_minor
-    print("Installed Node.js version: " + str(nodejs_cur_version_major) + "." + str(nodejs_cur_version_minor))
-  except:
-    nodejs_cur = 1
-  if (nodejs_cur < 10020):
-    print("Node.js version cannot be less 10.20")
-    print("Reinstall")
-    if (base.is_dir("./node_js_setup_10.x")):
-      base.delete_dir("./node_js_setup_10.x")
-    base.cmd("sudo", ["apt-get", "remove", "--purge", "-y", "nodejs"])
-    base.download("https://deb.nodesource.com/setup_10.x", "./node_js_setup_10.x")
-    base.cmd('curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -')
-    base.cmd("sudo", ["bash", "./node_js_setup_10.x"])
-    base.cmd("sudo", ["apt-get", "install", "-y", "nodejs"])
-    base.cmd("sudo", ["npm", "install", "-g", "npm@6"])
-  else:
-    print("OK")
-    base.cmd("sudo", ["apt-get", "-y", "install", "npm", "yarn"], True)
+  base.cmd("sudo", ["npm", "install", "-g", "npm@6"])
+
   base.cmd("sudo", ["npm", "install", "-g", "grunt-cli"])
   base.cmd("sudo", ["npm", "install", "-g", "pkg"])
 
