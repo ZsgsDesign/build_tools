@@ -89,9 +89,10 @@ def install_deps():
     base.cmd("sudo", ["apt-get", "-y", "install", "software-properties-common"])
     base.cmd("sudo", ["add-apt-repository", "-y", "ppa:openjdk-r/ppa"])
     base.cmd("sudo", ["apt-get", "update"])
-    base.cmd("sudo", ["apt-get", "-y", "install", "openjdk-11-jdk"])
+    base.cmd("sudo", ["apt-get", "-y", "install", "openjdk-8-jdk"])
     base.cmd("sudo", ["update-alternatives", "--config", "java"])
     base.cmd("sudo", ["update-alternatives", "--config", "javac"])
+    base.cmd("sudo", ["/var/lib/dpkg/info/ca-certificates-java.postinst", "configure"])
     
   base.writeFile("./packages_complete", "complete")
   return
