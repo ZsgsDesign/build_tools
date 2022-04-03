@@ -13,9 +13,9 @@ def make(build_js = True):
   if not base.is_dir("hunspell"):
       last_stable_commit = "8a2fdfe5a6bb1cbafc04b0c8486abcefd17ad903"
       repo_path = "https://github.com/hunspell/hunspell.git"
-      base.cmd("git", ["clone", repo_path])
+      base.cmd("git", ["-c", "http.sslVerify=false", "clone", repo_path])
       os.chdir("hunspell")
-      base.cmd("git", ["checkout", last_stable_commit])
+      base.cmd("git", ["-c", "http.sslVerify=false", "checkout", last_stable_commit])
       base.replaceInFile("./src/hunspell/filemgr.hxx", "FileMgr& operator=(const FileMgr&);", "FileMgr& operator=(const FileMgr&); \n" 
           +" #ifdef HUNSPELL_WASM_MODULE \n char* memory;size_t index;size_t size; \n #endif") #custon filemgr support watch filemgr_wrapper_new.cxx
       os.chdir("../")
@@ -34,7 +34,7 @@ def make(build_js = True):
   # fetch emsdk
   command_prefix = "" if ("windows" == base.host_platform()) else "./"
   if not base.is_dir("emsdk"):
-    base.cmd("git", ["clone", "https://github.com/emscripten-core/emsdk.git"])
+    base.cmd("git", ["-c", "http.sslVerify=false", "clone", "https://github.com/emscripten-core/emsdk.git"])
     os.chdir("emsdk")
     base.cmd(command_prefix + "emsdk", ["install", "latest"])
     base.cmd(command_prefix + "emsdk", ["activate", "latest"])

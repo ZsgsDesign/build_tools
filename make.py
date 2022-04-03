@@ -30,7 +30,7 @@ if ("1" != base.get_env("OO_RUNNING_BRANDING")) and ("" != config.option("brandi
     is_exist = True
     if not base.is_dir(branding_dir):
       is_exist = False
-      base.cmd("git", ["clone", config.option("branding-url"), branding_dir])
+      base.cmd("git", ["-c", "http.sslVerify=false", "clone", config.option("branding-url"), branding_dir])
 
     base.cmd_in_dir(branding_dir, "git", ["fetch"], True)
    

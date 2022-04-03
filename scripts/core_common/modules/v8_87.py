@@ -13,7 +13,7 @@ if not base.is_dir(base_dir):
 
 os.chdir(base_dir)
 if not base.is_dir("depot_tools"):
-  base.cmd("git", ["clone", "https://chromium.googlesource.com/chromium/tools/depot_tools.git"])
+  base.cmd("git", ["-c", "http.sslVerify=false", "clone", "https://chromium.googlesource.com/chromium/tools/depot_tools.git"])
 
 os.environ["PATH"] = base_dir + "/depot_tools" + os.pathsep + os.environ["PATH"]
 

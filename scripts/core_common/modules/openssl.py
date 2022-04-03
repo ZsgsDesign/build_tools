@@ -29,7 +29,7 @@ def make():
   base.common_check_version("openssl", "3", clean)
 
   if not base.is_dir("openssl"):
-    base.cmd("git", ["clone", "--depth=1", "--branch", "OpenSSL_1_1_1f", "https://github.com/openssl/openssl.git"])
+    base.cmd("git", ["-c", "http.sslVerify=false", "clone", "--depth=1", "--branch", "OpenSSL_1_1_1f", "https://github.com/openssl/openssl.git"])
 
   os.chdir(base_dir + "/openssl")
 
@@ -91,7 +91,7 @@ def make():
 
   if (-1 != config.option("platform").find("mac")) and not base.is_dir("../build/mac_arm64"):
     os.chdir(base_dir)
-    base.cmd("git", ["clone", "--depth=1", "--branch", "OpenSSL_1_1_1f", "https://github.com/openssl/openssl.git", "openssl2"])
+    base.cmd("git", ["-c", "http.sslVerify=false", "clone", "--depth=1", "--branch", "OpenSSL_1_1_1f", "https://github.com/openssl/openssl.git", "openssl2"])
     os.chdir(base_dir + "/openssl2")
     replace1 = "\"darwin64-x86_64-cc\" => {"
     replace2 = "\"darwin64-arm64-cc\" => {\n\

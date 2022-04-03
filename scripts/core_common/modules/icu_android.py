@@ -122,7 +122,7 @@ def make():
 
     # patch elf information
     os.chdir(current_dir + "/build")
-    base.cmd("git", ["clone", "https://github.com/NixOS/patchelf.git"])
+    base.cmd("git", ["-c", "http.sslVerify=false", "clone", "https://github.com/NixOS/patchelf.git"])
     os.chdir("./patchelf")
     base.cmd("./bootstrap.sh")
     base.cmd("./configure", ["--prefix=" + current_dir + "/build/patchelf/usr"])

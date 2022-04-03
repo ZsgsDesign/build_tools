@@ -86,7 +86,7 @@ def make():
     clean()
 
   if not base.is_dir("depot_tools"):
-    base.cmd("git", ["clone", "https://chromium.googlesource.com/chromium/tools/depot_tools.git"])
+    base.cmd("git", ["-c", "http.sslVerify=false", "clone", "https://chromium.googlesource.com/chromium/tools/depot_tools.git"])
     if ("windows" == base.host_platform()):
       # hack for 32 bit system!!!
       if base.is_file("depot_tools/cipd.ps1"):
@@ -102,7 +102,7 @@ def make():
   if not base.is_dir("v8"):
     base.cmd("./depot_tools/fetch", ["v8"], True)
     os.chdir(base_dir + "/v8")
-    base.cmd("git", ["checkout", "-b", "6.0", "branch-heads/6.0"], True)
+    base.cmd("git", ["-c", "http.sslVerify=false", "checkout", "-b", "6.0", "branch-heads/6.0"], True)
     os.chdir(base_dir)
 
   # --------------------------------------------------------------------------
@@ -112,7 +112,7 @@ def make():
     # windows hack (delete later) ----------------------
     if ("windows" == base.host_platform()):
       base.delete_dir_with_access_error("v8/buildtools/win")
-      base.cmd("git", ["config", "--system", "core.longpaths", "true"])
+      base.cmd("git", ["-c", "http.sslVerify=false", "config", "--system", "core.longpaths", "true"])
       base.cmd("gclient", ["sync", "--force"], True)
     else:
       base.cmd("gclient", ["sync"], True) 
@@ -217,7 +217,7 @@ def make_xp():
     clean()
 
   if not base.is_dir("depot_tools"):
-    base.cmd("git", ["clone", "https://chromium.googlesource.com/chromium/tools/depot_tools.git"])
+    base.cmd("git", ["-c", "http.sslVerify=false", "clone", "https://chromium.googlesource.com/chromium/tools/depot_tools.git"])
     if ("windows" == base.host_platform()):
       # hack for 32 bit system!!!
       if base.is_file("depot_tools/cipd.ps1"):
@@ -234,7 +234,7 @@ def make_xp():
     base.cmd("./depot_tools/fetch", ["v8"], True)
     base.cmd("./depot_tools/gclient", ["sync", "-r", "4.10.253"], True)
     base.delete_dir_with_access_error("v8/buildtools/win")
-    base.cmd("git", ["config", "--system", "core.longpaths", "true"])
+    base.cmd("git", ["-c", "http.sslVerify=false", "config", "--system", "core.longpaths", "true"])
     base.cmd("gclient", ["sync", "--force"], True)
 
   # save common py script

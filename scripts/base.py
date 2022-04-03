@@ -424,23 +424,23 @@ def git_update(repo, is_no_errors=False, is_current_dir=False):
     folder = repo
   is_not_exit = False
   if not is_dir(folder):
-    retClone = cmd("git", ["clone", url, folder], is_no_errors)
+    retClone = cmd("git", ["-c", "http.sslVerify=false", "clone", url, folder], is_no_errors)
     if retClone != 0:
       return
     is_not_exit = True
   old_cur = os.getcwd()
   os.chdir(folder)
-  cmd("git", ["fetch"], False if ("1" != config.option("update-light")) else True)
+  cmd("git", ["-c", "http.sslVerify=false", "fetch"], False if ("1" != config.option("update-light")) else True)
   if is_not_exit or ("1" != config.option("update-light")):
-    retCheckout = cmd("git", ["checkout", "-f", config.option("branch")], True)
+    retCheckout = cmd("git", ["-c", "http.sslVerify=false", "checkout", "-f", config.option("branch")], True)
     if (retCheckout != 0):
       print("branch does not exist...")
       print("switching to master...")
-      cmd("git", ["checkout", "-f", "master"])
-    cmd("git", ["submodule", "update", "--init", "--recursive"], True)
+      cmd("git", ["-c", "http.sslVerify=false", "checkout", "-f", "master"])
+    cmd("git", ["-c", "http.sslVerify=false", "submodule", "update", "--init", "--recursive"], True)
   if (0 != config.option("branch").find("tags/")):
-    cmd("git", ["pull"], False if ("1" != config.option("update-light")) else True)
-    cmd("git", ["submodule", "update", "--recursive", "--remote"], True)
+    cmd("git", ["-c", "http.sslVerify=false", "pull"], False if ("1" != config.option("update-light")) else True)
+    cmd("git", ["-c", "http.sslVerify=false", "submodule", "update", "--recursive", "--remote"], True)
   os.chdir(old_cur)
   return
 
@@ -497,25 +497,25 @@ def create_pull_request(branches_to, repo, is_no_errors=False, is_current_dir=Fa
     folder = repo
   is_not_exit = False
   if not is_dir(folder):
-    retClone = cmd("git", ["clone", url, folder], is_no_errors)
+    retClone = cmd("git", ["-c", "http.sslVerify=false", "clone", url, folder], is_no_errors)
     if retClone != 0:
       return
     is_not_exit = True
   old_cur = os.getcwd()
   os.chdir(folder)
   branch_from = config.option("branch")
-  cmd("git", ["checkout", "-f", branch_from], is_no_errors)
-  cmd("git", ["pull"], is_no_errors)
+  cmd("git", ["-c", "http.sslVerify=false", "checkout", "-f", branch_from], is_no_errors)
+  cmd("git", ["-c", "http.sslVerify=false", "pull"], is_no_errors)
   for branch_to in branches_to:
     if "" != run_command("git log origin/" + branch_to + "..origin/" + branch_from)["stdout"]:
-      cmd("git", ["checkout", "-f", branch_to], is_no_errors)
-      cmd("git", ["pull"], is_no_errors)
+      cmd("git", ["-c", "http.sslVerify=false", "checkout", "-f", branch_to], is_no_errors)
+      cmd("git", ["-c", "http.sslVerify=false", "pull"], is_no_errors)
       cmd("gh", ["pr", "create", "--base", branch_to, "--head", branch_from, "--title", "Merge branch " + branch_from + " to " + branch_to, "--body", ""], is_no_errors)
-      if 0 != cmd("git", ["merge", "origin/" + branch_from, "--no-ff", "--no-edit"], is_no_errors):
+      if 0 != cmd("git", ["-c", "http.sslVerify=false", "merge", "origin/" + branch_from, "--no-ff", "--no-edit"], is_no_errors):
         print_error("[git] Conflicts merge " + "origin/" + branch_from + " to " + branch_to + " in repo " + url)
-        cmd("git", ["merge", "--abort"], is_no_errors)
+        cmd("git", ["-c", "http.sslVerify=false", "merge", "--abort"], is_no_errors)
       else:
-        cmd("git", ["push"], is_no_errors)
+        cmd("git", ["-c", "http.sslVerify=false", "push"], is_no_errors)
       
   os.chdir(old_cur)
   return

@@ -80,7 +80,7 @@ def make():
   os.chdir(current_dir)
 
   if not base.is_dir(current_dir + "/IXWebSocket"):
-    base.cmd("git", ["clone", "https://github.com/machinezone/IXWebSocket"])
+    base.cmd("git", ["-c", "http.sslVerify=false", "clone", "https://github.com/machinezone/IXWebSocket"])
 
 
   # build for platform
@@ -113,7 +113,7 @@ def make():
       return
 
     if not base.is_dir(current_dir + "/ios-cmake"):
-     base.cmd("git", ["clone", "https://github.com/leetal/ios-cmake"])
+     base.cmd("git", ["-c", "http.sslVerify=false", "clone", "https://github.com/leetal/ios-cmake"])
 
     CMAKE_TOOLCHAIN_FILE = current_dir + "/ios-cmake/ios.toolchain.cmake"
 
