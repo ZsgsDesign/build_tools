@@ -414,10 +414,11 @@ def set_cwd(dir):
 # git ---------------------------------------------------
 def git_update(repo, is_no_errors=False, is_current_dir=False):
   repo_privoder = "zsgsdesign" if repo == "core" else "ONLYOFFICE"
+  repo_url = "onlyoffice_core" if repo == "core" else repo
   print("[git] update: " + repo)
-  url = "https://github.com/" + repo_privoder + "/" + repo + ".git"
+  url = "https://github.com/" + repo_privoder + "/" + repo_url + ".git"
   if config.option("git-protocol") == "ssh":
-    url = "git@github.com:" + repo_privoder + "/" + repo + ".git"
+    url = "git@github.com:" + repo_privoder + "/" + repo_url + ".git"
   folder = get_script_dir() + "/../../" + repo
   if is_current_dir:
     folder = repo
