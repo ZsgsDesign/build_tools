@@ -92,7 +92,6 @@ def install_deps():
     base.cmd("sudo", ["apt-get", "-y", "install", "openjdk-8-jdk"])
     base.cmd("sudo", ["update-alternatives", "--config", "java"])
     base.cmd("sudo", ["update-alternatives", "--config", "javac"])
-    base.cmd("sudo", ["dpkg-reconfigure", "ca-certificates"])
     
   base.writeFile("./packages_complete", "complete")
   return
@@ -181,9 +180,10 @@ build_tools_params = ["--branch", branch,
 base.cmd("git", ["config", "--global", "http.sslVerify", "false"])
 base.cmd("sudo", ["apt-get", "install", "ca-certificates"])
 base.cmd("echo", ["\"insecure\"", ">>",  "\"~/.curlrc\""])
+base.cmd("sudo", ["update-ca-certificates"])
 
 base.cmd_in_dir("../..", "./configure.py", build_tools_params)
-base.cmd_in_dir("../..", "./make.py")
+# base.cmd_in_dir("../..", "./make.py")
 
 
 
