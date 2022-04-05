@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: zsgsdesign/onlyoffice_build_tools
+  IMAGE_NAME: zsgsdesign/onlyoffice_build_tools_artifacts
 
 jobs:
   build-and-push-image:
