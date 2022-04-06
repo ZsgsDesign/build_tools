@@ -18,4 +18,6 @@
 
 FROM ghcr.io/zsgsdesign/onlyoffice_build_tools:master
 
+COPY build.pro build.pro
+
 RUN python3 make.py
